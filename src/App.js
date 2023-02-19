@@ -1,54 +1,44 @@
 import { useState } from 'react'
 
-const Button = ({setType, type, text}) => <button onClick={() => setType(type + 1)}>{text}</button>
+const App = () => {
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+    'The only way to go fast, is to go well.'
+  ]
+   
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0, 0])
 
-const StatisticsLine = ({text, value}) => <tr><td>{text}</td><td>{value}</td></tr>
+  const copy = [...votes]
 
-const Statistics = ({good, neutral, bad}) => {
+  let max = copy[0]
+  let maxIndex = 0
 
-  const all = good + neutral + bad
-  const average = (good*(1) + neutral*(0) + bad*(-1)) / (all)
-
-  if (all === 0) {
-    return( 
-      <div>
-        <h1>statistics</h1>
-        No feedback given
-      </div>
-      )
+  for(var i = 0; i < copy.length; i++) {
+    if (max < copy[i]){
+        max = copy[i]
+        maxIndex = i
+      }
   }
 
-  return(
-    <div>
-      <h1>statistics</h1>
-      <table>
-        <tbody>
-          <StatisticsLine text="good" value={good} />
-          <StatisticsLine text="bad" value={bad} />
-          <StatisticsLine text="neutral" value={neutral} />
-          <StatisticsLine text="all" value={all} />
-          <StatisticsLine text="average" value={average} />
-          <StatisticsLine text="positive" value={good/(all) * 100 + "%"} />
-        </tbody>
-      </table>
-    </div>
-  )
-
-}
-
-const App = () => {
-
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  copy[selected] += 1
 
   return (
     <div>
-      <h1>give feedback</h1>
-      <Button setType={setGood} type={good} text="good"/>
-      <Button setType={setNeutral} type={neutral} text="neutral"/>
-      <Button setType={setBad} type={bad} text="bad"/>
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <h1>Anecdote of the day</h1>
+      {anecdotes[selected]} <br />
+      <button onClick={() => setVotes(copy)}>vote</button>
+      <button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))}>next anecdote</button> <br />
+      has {votes[selected]} votes <br />
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[maxIndex]} <br />
+      has {max} votes <br />
     </div>
   )
 }
