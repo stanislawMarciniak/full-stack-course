@@ -2,14 +2,6 @@ import { useState } from 'react'
 
 import Name from './components/Name'
 
-const Names = ({persons}) => {
-  return (
-    <ul>
-        {persons.map(person => <li>{person.content}</li>)}
-    </ul>
-  )
-}
-
 const App = () => {
   const [persons, setPersons] = useState([
     { 
@@ -48,7 +40,13 @@ const App = () => {
           <button type="submit">add</button>
       </form>
       <h2>Numbers</h2>
-      <Names key={persons.id} persons={persons}/>
+      <ul>
+        <ul>
+        {persons.map(person =>
+          <Name key={person.id} person={person} />
+        )}
+        </ul>
+      </ul>
     </div>
   )
 }
