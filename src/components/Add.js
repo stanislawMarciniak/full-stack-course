@@ -1,7 +1,12 @@
-const Add = () => {
+import { useState } from 'react'
+
+const Add = ({persons, setPersons}) => {
 
     const [newName, setNewName] = useState('')
     const [newPhone, setNewPhone] = useState('')
+
+    const handlePersonChange = (event) => setNewName(event.target.value)
+    const handlePhoneChange = (event) => setNewPhone(event.target.value)
     
     const addPerson = (event) => {
         event.preventDefault()
@@ -27,15 +32,7 @@ const Add = () => {
     }
 
     return (
-    <>
-        <h2>Phonebook</h2>
-        <div>
-            filter shown with
-            <input
-            value={newFilter}
-            onChange={handleFilterChange}
-            />
-        </div>
+        <>
         <h2>add a new</h2>
         <form onSubmit={addPerson}>
             <div>
@@ -54,8 +51,8 @@ const Add = () => {
             </div>
             <button type="submit">add</button>
         </form>
-    </>
+        </>
     )
 }
 
-export default App
+export default Add
