@@ -48,7 +48,7 @@ const App = () => {
           <button type="submit">add</button>
       </form>
       <h2>Numbers</h2>
-      <Names persons={persons}/>
+      <Names key={persons.id} persons={persons}/>
     </div>
   )
 }
