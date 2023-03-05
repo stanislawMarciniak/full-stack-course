@@ -28,7 +28,7 @@ const App = () => {
     <div>
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <Add key={persons.id} persons={persons} setPersons={setPersons} />
-      <Name key={filteredPersons.id} filteredPersons={filteredPersons} />
+      <Name filteredPersons={filteredPersons} />
     </div>
   );
 };
