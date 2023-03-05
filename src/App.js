@@ -1,25 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
 
-import Name from './components/Name'
-import Add from './components/Add'
-import Filter from './components/Filter'
-
+import axios from "axios";
+import Name from "./components/Name";
+import Add from "./components/Add";
+import Filter from "./components/Filter";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { 
-      content: 'Arto Hellas' ,
-      phone: '555-555-5555',
-      id: 1,
-    }
-  ]) 
-  const [newFilter, setNewFilter] = useState('')
+  const [persons, setPersons] = useState([]);
+  const [newFilter, setNewFilter] = useState("");
 
-  const handleFilterChange = (event) => setNewFilter(event.target.value)
+  useEffect(() => {
+    console.log("effect");
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
+  console.log("render", persons.length, "persons");
+
+  const handleFilterChange = (event) => setNewFilter(event.target.value);
 
   const filteredPersons = persons.filter((person) => {
-    return person.content.toLowerCase().includes(newFilter.toLowerCase())
-  })
+    return person.name.toLowerCase().includes(newFilter.toLowerCase());
+  });
 
   return (
     <div>
@@ -27,7 +30,7 @@ const App = () => {
       <Add key={persons.id} persons={persons} setPersons={setPersons} />
       <Name key={filteredPersons.id} filteredPersons={filteredPersons} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
