@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import axios from "axios";
+
 const Add = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
@@ -23,11 +25,13 @@ const Add = ({ persons, setPersons }) => {
         id: persons.length + 1,
       };
 
-      setPersons(persons.concat(personObject));
+      const request = axios.post("http://localhost:3001/persons", personObject);
+      request.then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewPhone("");
+      });
     }
-
-    setNewName("");
-    setNewPhone("");
   };
 
   return (
