@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import personService from "../services/persons";
+import axios from "axios";
 
 const Add = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
@@ -24,7 +24,9 @@ const Add = ({ persons, setPersons }) => {
         number: newPhone,
         id: persons.length + 1,
       };
-      personService.create(personObject).then((response) => {
+
+      const request = axios.post("http://localhost:3001/persons", personObject);
+      request.then((response) => {
         setPersons(persons.concat(response.data));
         setNewName("");
         setNewPhone("");

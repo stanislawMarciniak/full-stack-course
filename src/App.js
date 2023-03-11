@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
+import axios from "axios";
 import Name from "./components/Name";
 import Add from "./components/Add";
 import Filter from "./components/Filter";
-import personService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,8 +11,9 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    personService.getAll().then((persons) => {
-      setPersons(persons);
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
     });
   }, []);
   console.log("render", persons.length, "persons");
@@ -20,7 +21,6 @@ const App = () => {
   const handleFilterChange = (event) => setNewFilter(event.target.value);
 
   const filteredPersons = persons.filter((person) => {
-    console.log(person.name);
     return person.name.toLowerCase().includes(newFilter.toLowerCase());
   });
 
