@@ -26,9 +26,9 @@ const Add = ({ persons, setPersons }) => {
       };
       personService.create(personObject).then((response) => {
         setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewPhone("");
       });
-      setNewName("");
-      setNewPhone("");
     }
   };
 
