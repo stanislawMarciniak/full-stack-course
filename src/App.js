@@ -25,13 +25,13 @@ const App = () => {
 
   const togglePersonDelete = (id) => {
     personService.deletePerson(id).then(() => {
-      setPersons(persons.filter((returnedPerson) => returnedPerson.id !== id));
       setPersons(
-        persons.map((person) =>
-          person.id > id ? { ...person, id: person.id - 1 } : person
-        )
+        persons
+          .filter((returnedPerson) => returnedPerson.id !== id)
+          .map((person) =>
+            person.id > id ? { ...person, id: person.id - 1 } : person
+          ) //mapping is not working
       );
-
       console.log("deleted", persons);
       personService.update(persons);
     });
