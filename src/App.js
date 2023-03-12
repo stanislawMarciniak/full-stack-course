@@ -25,12 +25,15 @@ const App = () => {
 
   const togglePersonDelete = (id) => {
     personService.deletePerson(id).then(() => {
-      setPersons(persons.filter((person) => person.id !== id));
+      setPersons(persons.filter((returnedPerson) => returnedPerson.id !== id));
       setPersons(
-        persons.map(
-          (person) => (person.id = person.id > id ? person.id-- : person.id)
+        persons.map((person) =>
+          person.id > id ? { ...person, id: person.id - 1 } : person
         )
       );
+
+      console.log("deleted", persons);
+      personService.update(persons);
     });
   };
 
