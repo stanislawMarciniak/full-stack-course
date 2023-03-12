@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import axios from "axios";
-
 import Name from "./components/Name";
 import Add from "./components/Add";
 import Filter from "./components/Filter";
@@ -25,11 +23,21 @@ const App = () => {
     return person.name.toLowerCase().includes(newFilter.toLowerCase());
   });
 
+  const togglePersonDelete = (id) => {
+    
+    personService.deletePerson(id).then(() => {
+      setPersons(persons.filter((person) => person.id !== id));
+    });
+  };
+
   return (
     <div>
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <Add key={persons.id} persons={persons} setPersons={setPersons} />
-      <Name filteredPersons={filteredPersons} />
+      <Name
+        filteredPersons={filteredPersons}
+        togglePersonDelete={togglePersonDelete}
+      />
     </div>
   );
 };

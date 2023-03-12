@@ -37,12 +37,10 @@ const Add = ({ persons, setPersons }) => {
       <h2>add a new</h2>
       <form onSubmit={addPerson}>
         <div>
-          name:
-          <input value={newName} onChange={handlePersonChange} />
+          name: <input value={newName} onChange={handlePersonChange} />
         </div>
         <div>
-          number:
-          <input value={newPhone} onChange={handlePhoneChange} />
+          number: <input value={newPhone} onChange={handlePhoneChange} />
         </div>
         <button type="submit">add</button>
       </form>
