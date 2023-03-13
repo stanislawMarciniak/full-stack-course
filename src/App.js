@@ -24,17 +24,14 @@ const App = () => {
   });
 
   const togglePersonDelete = (id) => {
-    personService.deletePerson(id).then(() => {
-      setPersons(
-        persons
-          .filter((returnedPerson) => returnedPerson.id !== id)
-          .map((person) =>
-            person.id > id ? { ...person, id: person.id - 1 } : person
-          ) //mapping is not working
-      );
-      console.log("deleted", persons);
-      personService.update(persons);
-    });
+    const deletedPerson = persons.find((person) => person.id === id);
+    if (window.confirm(`Delete ${deletedPerson.name} ?`))
+      personService.deletePerson(id).then(() => {
+        setPersons(
+          persons.filter((returnedPerson) => returnedPerson.id !== id)
+        );
+        console.log("deleted", persons);
+      });
   };
 
   return (
