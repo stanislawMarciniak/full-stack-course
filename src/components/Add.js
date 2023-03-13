@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import personService from "../services/persons";
 
-const Add = ({ persons, setPersons }) => {
+const Add = ({ persons, setPersons, setNotificationMessage }) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
 
@@ -34,6 +34,10 @@ const Add = ({ persons, setPersons }) => {
           );
         setNewName("");
         setNewPhone("");
+        setNotificationMessage(
+          `Changed ${newName} phone number to ${newPhone}`
+        );
+        setTimeout(() => setNotificationMessage(null), 4000);
       }
     }
 
@@ -53,6 +57,8 @@ const Add = ({ persons, setPersons }) => {
         setNewName("");
         setNewPhone("");
       });
+      setNotificationMessage(`Added ${newName}`);
+      setTimeout(() => setNotificationMessage(null), 4000);
     }
   };
 
