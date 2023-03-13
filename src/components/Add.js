@@ -11,13 +11,16 @@ const Add = ({ persons, setPersons }) => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    let help = 1;
     let maxIndex = 0;
+    let help = 1;
+
+    const namesArray = persons.map((person) => person.name);
+
+    if (namesArray.toLowerCase().includes(newName.toLowerCase())) {
+      alert(`${newName} is already added to phonebook`);
+    }
+
     for (let i = 0; i < persons.length; i++) {
-      if (persons[i].name === newName) {
-        alert(`${newName} is already added to phonebook`);
-        help--;
-      }
       if (persons[i].id > maxIndex) {
         maxIndex = persons[i].id;
       }

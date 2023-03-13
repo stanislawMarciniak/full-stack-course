@@ -24,10 +24,14 @@ const App = () => {
   });
 
   const togglePersonDelete = (id) => {
-    personService.deletePerson(id).then(() => {
-      setPersons(persons.filter((returnedPerson) => returnedPerson.id !== id));
-      console.log("deleted", persons);
-    });
+    const deletedPerson = persons.find((person) => person.id === id);
+    if (window.confirm(`Delete ${deletedPerson.name} ?`))
+      personService.deletePerson(id).then(() => {
+        setPersons(
+          persons.filter((returnedPerson) => returnedPerson.id !== id)
+        );
+        console.log("deleted", persons);
+      });
   };
 
   return (
