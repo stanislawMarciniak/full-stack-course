@@ -2,7 +2,12 @@ import { useState } from "react";
 
 import personService from "../services/persons";
 
-const Add = ({ persons, setPersons, setNotificationMessage }) => {
+const Add = ({
+  persons,
+  setPersons,
+  setNotificationMessage,
+  typeOfNotification,
+}) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
 
@@ -31,7 +36,23 @@ const Add = ({ persons, setPersons, setNotificationMessage }) => {
                 person.name !== newName ? person : changedPerson
               )
             )
-          );
+          )
+          .catch((error) => {
+            typeOfNotification = "error";
+            setNotificationMessage(
+              `${changedPerson.name} was already removed from server`
+            );
+            typeOfNotification = "notification";
+            setTimeout(() => {
+              setNotificationMessage(null);
+            }, 4000);
+            setPersons(
+              persons.map((person) =>
+                person.name !== newName ? person : changedPerson
+              )
+            );
+            console.log("deleted", persons);
+          });
         setNewName("");
         setNewPhone("");
         setNotificationMessage(

@@ -26,7 +26,7 @@ const App = () => {
     return person.name.toLowerCase().includes(newFilter.toLowerCase());
   });
 
-  let type = "notification";
+  let typeOfNotification = "notification";
 
   const togglePersonDelete = (id) => {
     const deletedPerson = persons.find((person) => person.id === id);
@@ -39,11 +39,11 @@ const App = () => {
           );
         })
         .catch((error) => {
-          type = "error";
+          typeOfNotification = "error";
           setNotificationMessage(
             `${deletedPerson.name} was already removed from server`
           );
-          type = "notification";
+          typeOfNotification = "notification";
           setTimeout(() => {
             setNotificationMessage(null);
           }, 4000);
@@ -55,13 +55,14 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notificationMessage} type={type} />
+      <Notification message={notificationMessage} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <Add
         key={persons.id}
         persons={persons}
         setPersons={setPersons}
         setNotificationMessage={setNotificationMessage}
+        typeOfNotification={typeOfNotification}
       />
       <Name
         filteredPersons={filteredPersons}
