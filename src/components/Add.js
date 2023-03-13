@@ -11,14 +11,30 @@ const Add = ({ persons, setPersons }) => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    let help = 1;
 
     const namesArray = persons.map((person) => person.name);
 
     if (namesArray.includes(newName)) {
-      alert(
-        `${newName} is already added to phonebook, replace the old number with a new one`
-      );
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one`
+        )
+      ) {
+        const person = persons.find((person) => person.name === newName);
+        const changedPerson = { ...person, number: newPhone };
+
+        personService
+          .update(changedPerson, person.id)
+          .then(() =>
+            setPersons(
+              persons.map((person) =>
+                person.name !== newName ? person : changedPerson
+              )
+            )
+          );
+        setNewName("");
+        setNewPhone("");
+      }
     }
 
     let maxIndex = persons.reduce((max, person) => {
