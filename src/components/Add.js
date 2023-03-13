@@ -11,21 +11,21 @@ const Add = ({ persons, setPersons }) => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    let maxIndex = 0;
     let help = 1;
 
     const namesArray = persons.map((person) => person.name);
 
-    if (namesArray.toLowerCase().includes(newName.toLowerCase())) {
-      alert(`${newName} is already added to phonebook`);
+    if (namesArray.includes(newName)) {
+      alert(
+        `${newName} is already added to phonebook, replace the old number with a new one`
+      );
     }
 
-    for (let i = 0; i < persons.length; i++) {
-      if (persons[i].id > maxIndex) {
-        maxIndex = persons[i].id;
-      }
-    }
-    if (help) {
+    let maxIndex = persons.reduce((max, person) => {
+      return Math.max(max, person.id);
+    });
+
+    if (!namesArray.includes(newName)) {
       const personObject = {
         name: newName,
         number: newPhone,
