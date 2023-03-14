@@ -10,8 +10,7 @@ import personService from "./services/persons";
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newFilter, setNewFilter] = useState("");
-  const [notificationMessage, setNotificationMessage] = useState(null);
-  const [notificationType, setNotificationType] = useState(true);
+  const [notification, setNotification] = useState({});
 
   useEffect(() => {
     console.log("effect");
@@ -38,13 +37,15 @@ const App = () => {
           );
         })
         .catch((error) => {
-          setNotificationType(!notificationType);
-          setNotificationMessage(
-            `${deletedPerson.name} was already removed from server`
-          );
+          setNotification({
+            type: false,
+            message: `${deletedPerson.name} was already removed from server`,
+          });
           setTimeout(() => {
-            setNotificationMessage(null);
-            setNotificationType(!notificationType);
+            setNotification({
+              type: true,
+              message: null,
+            });
           }, 4000);
           setPersons(persons.filter((n) => n.id !== id));
           console.log("deleted", persons);
@@ -54,14 +55,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notificationMessage} type={notificationType} />
+      <Notification notification={notification} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <Add
         key={persons.id}
         persons={persons}
         setPersons={setPersons}
-        setNotificationMessage={setNotificationMessage}
-        setNotificationType={setNotificationType}
+        setNotification={setNotification}
       />
       <Name
         filteredPersons={filteredPersons}
