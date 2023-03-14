@@ -2,7 +2,12 @@ import { useState } from "react";
 
 import personService from "../services/persons";
 
-const Add = ({ persons, setPersons }) => {
+const Add = ({
+  persons,
+  setPersons,
+  setNotificationMessage,
+  typeOfNotification,
+}) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
 
@@ -11,14 +16,50 @@ const Add = ({ persons, setPersons }) => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    let help = 1;
 
     const namesArray = persons.map((person) => person.name);
 
     if (namesArray.includes(newName)) {
-      alert(
-        `${newName} is already added to phonebook, replace the old number with a new one`
-      );
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one`
+        )
+      ) {
+        const person = persons.find((person) => person.name === newName);
+        const changedPerson = { ...person, number: newPhone };
+
+        personService
+          .update(changedPerson, person.id)
+          .then(() =>
+            setPersons(
+              persons.map((person) =>
+                person.name !== newName ? person : changedPerson
+              )
+            )
+          )
+          .catch((error) => {
+            typeOfNotification = "error";
+            setNotificationMessage(
+              `${changedPerson.name} was already removed from server`
+            );
+            typeOfNotification = "notification";
+            setTimeout(() => {
+              setNotificationMessage(null);
+            }, 4000);
+            setPersons(
+              persons.map((person) =>
+                person.name !== newName ? person : changedPerson
+              )
+            );
+            console.log("deleted", persons);
+          });
+        setNewName("");
+        setNewPhone("");
+        setNotificationMessage(
+          `Changed ${newName} phone number to ${newPhone}`
+        );
+        setTimeout(() => setNotificationMessage(null), 4000);
+      }
     }
 
     let maxIndex = persons.reduce((max, person) => {
@@ -37,6 +78,8 @@ const Add = ({ persons, setPersons }) => {
         setNewName("");
         setNewPhone("");
       });
+      setNotificationMessage(`Added ${newName}`);
+      setTimeout(() => setNotificationMessage(null), 4000);
     }
   };
 

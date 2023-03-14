@@ -1,16 +1,6 @@
 {
   "persons": [
     {
-      "name": "sjfvjwhvf",
-      "number": "",
-      "id": 5
-    },
-    {
-      "name": "khafvihevfh",
-      "number": "",
-      "id": 11
-    },
-    {
       "name": "jsgdvcjhsdvcj",
       "number": "",
       "id": 12
@@ -21,13 +11,14 @@
       "id": 13
     },
     {
-      "name": "vbfdn vbk",
+      "name": "hejka'",
       "number": "",
       "id": 14
     },
     {
-      "name": "wfbhb",
+      "name": "stsaiek",
       "number": "",
+<<<<<<< HEAD
       "id": 16
     },
     {
@@ -44,6 +35,9 @@
       "name": "Stasiek 237523",
       "number": "",
       "id": 21
+=======
+      "id": 15
+>>>>>>> 6da90357f3ab7ac76c3abc9a1fe1fb64a873cf23
     }
   ]
 }
