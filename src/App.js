@@ -11,6 +11,7 @@ const App = () => {
   const [persons, setPersons] = useState([]);
   const [newFilter, setNewFilter] = useState("");
   const [notificationMessage, setNotificationMessage] = useState(null);
+  const [notificationType, setNotificationType] = useState(true);
 
   useEffect(() => {
     console.log("effect");
@@ -26,8 +27,6 @@ const App = () => {
     return person.name.toLowerCase().includes(newFilter.toLowerCase());
   });
 
-  let typeOfNotification = "notification";
-
   const togglePersonDelete = (id) => {
     const deletedPerson = persons.find((person) => person.id === id);
     if (window.confirm(`Delete ${deletedPerson.name} ?`))
@@ -39,13 +38,13 @@ const App = () => {
           );
         })
         .catch((error) => {
-          typeOfNotification = "error";
+          setNotificationType(!notificationType);
           setNotificationMessage(
             `${deletedPerson.name} was already removed from server`
           );
-          typeOfNotification = "notification";
           setTimeout(() => {
             setNotificationMessage(null);
+            setNotificationType(!notificationType);
           }, 4000);
           setPersons(persons.filter((n) => n.id !== id));
           console.log("deleted", persons);
@@ -55,14 +54,14 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notificationMessage} />
+      <Notification message={notificationMessage} type={notificationType} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <Add
         key={persons.id}
         persons={persons}
         setPersons={setPersons}
         setNotificationMessage={setNotificationMessage}
-        typeOfNotification={typeOfNotification}
+        setNotificationType={setNotificationType}
       />
       <Name
         filteredPersons={filteredPersons}

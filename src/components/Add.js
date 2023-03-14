@@ -6,7 +6,7 @@ const Add = ({
   persons,
   setPersons,
   setNotificationMessage,
-  typeOfNotification,
+  setNotificationType,
 }) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
@@ -38,13 +38,13 @@ const Add = ({
             )
           )
           .catch((error) => {
-            typeOfNotification = "error";
+            setNotificationType(false);
             setNotificationMessage(
               `${changedPerson.name} was already removed from server`
             );
-            typeOfNotification = "notification";
             setTimeout(() => {
               setNotificationMessage(null);
+              setNotificationType(1);
             }, 4000);
             setPersons(
               persons.map((person) =>
