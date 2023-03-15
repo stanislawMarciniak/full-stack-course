@@ -2,12 +2,7 @@ import { useState } from "react";
 
 import personService from "../services/persons";
 
-const Add = ({
-  persons,
-  setPersons,
-  setNotificationMessage,
-  typeOfNotification,
-}) => {
+const Add = ({ persons, setPersons, setNotification }) => {
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
 
@@ -38,13 +33,12 @@ const Add = ({
             )
           )
           .catch((error) => {
-            typeOfNotification = "error";
-            setNotificationMessage(
-              `${changedPerson.name} was already removed from server`
-            );
-            typeOfNotification = "notification";
+            setNotification({
+              type: false,
+              message: `${changedPerson.name} was already removed from server`,
+            });
             setTimeout(() => {
-              setNotificationMessage(null);
+              setNotification({ type: true, message: null });
             }, 4000);
             setPersons(
               persons.map((person) =>
@@ -55,10 +49,11 @@ const Add = ({
           });
         setNewName("");
         setNewPhone("");
-        setNotificationMessage(
-          `Changed ${newName} phone number to ${newPhone}`
-        );
-        setTimeout(() => setNotificationMessage(null), 4000);
+        setNotification({
+          type: true,
+          message: `Changed ${newName} phone number to ${newPhone}`,
+        });
+        setTimeout(() => setNotification({ type: true, message: null }), 4000);
       }
     }
 
@@ -78,8 +73,8 @@ const Add = ({
         setNewName("");
         setNewPhone("");
       });
-      setNotificationMessage(`Added ${newName}`);
-      setTimeout(() => setNotificationMessage(null), 4000);
+      setNotification({ type: true, message: `Added ${newName}` });
+      setTimeout(() => setNotification({ type: true, message: null }), 4000);
     }
   };
 
