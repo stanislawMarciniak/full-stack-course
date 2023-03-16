@@ -1,6 +1,8 @@
 import Country from "./Country";
 
 const Countries = ({ filteredCountries }) => {
+  const handleClick = (i) => filteredCountries.find((n, index) => index === i);
+
   if (filteredCountries.length > 10)
     return <>Too many matches, specify another filter</>;
 
@@ -12,7 +14,10 @@ const Countries = ({ filteredCountries }) => {
   return (
     <>
       {filteredCountries.map((country, i) => (
-        <div key={i}> {country.name.common}</div>
+        <div key={i}>
+          {country.name.common}{" "}
+          <button onClick={() => handleClick(i)}>show</button>
+        </div>
       ))}
     </>
   );
