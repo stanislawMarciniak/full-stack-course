@@ -18,7 +18,7 @@ const App = () => {
       setPersons(persons);
     });
   }, []);
-  console.log("render", persons.length, "persons");
+    console.log("render", persons.length, "persons");
 
   const handleFilterChange = (event) => setNewFilter(event.target.value);
 
