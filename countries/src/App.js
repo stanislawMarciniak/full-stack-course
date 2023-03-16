@@ -8,6 +8,7 @@ import Countries from "./components/Countries";
 function App() {
   const [countries, setCountries] = useState([]);
   const [filter, setFilter] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(
     () =>
@@ -18,7 +19,10 @@ function App() {
   );
   console.log("render", countries, "countries");
 
-  const handleFilterChange = (event) => setFilter(event.target.value);
+  const handleFilterChange = (event) => {
+    setIsLoaded(false);
+    return setFilter(event.target.value);
+  };
 
   const filteredCountries = countries.filter((country) => {
     return country.name.common.toLowerCase().includes(filter.toLowerCase());
@@ -27,7 +31,11 @@ function App() {
   return (
     <div>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <Countries filteredCountries={filteredCountries} />
+      <Countries
+        filteredCountries={filteredCountries}
+        isLoaded={isLoaded}
+        setIsLoaded={setIsLoaded}
+      />
     </div>
   );
 }
