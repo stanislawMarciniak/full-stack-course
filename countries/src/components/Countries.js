@@ -5,8 +5,8 @@ const Countries = ({ filteredCountries }) => {
     return <>Too many matches, specify another filter</>;
 
   if (filteredCountries.length === 1) {
-    console.log(filteredCountries[0]);
-    return <Country country={filteredCountries[0].name.common} />;
+    console.log(filteredCountries[0].name.common + " countries");
+    return <Country country={filteredCountries[0]} />;
   }
 
   return (
