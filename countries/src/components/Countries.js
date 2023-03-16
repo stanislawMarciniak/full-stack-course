@@ -1,11 +1,13 @@
 import { useState } from "react";
+
 import Country from "./Country";
 
-const Countries = ({ filteredCountries }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const Countries = ({ filteredCountries, isLoaded, setIsLoaded }) => {
+  const [shownCountry, setShownCountry] = useState(null); //zmienic na obiekt (polaczyc z isLoaded)
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (index) => {
     setIsLoaded(true);
+    setShownCountry(filteredCountries.find((n, i) => i === index));
   };
 
   if (filteredCountries.length > 10)
@@ -19,13 +21,13 @@ const Countries = ({ filteredCountries }) => {
   return (
     <>
       {isLoaded ? (
-        <Country country={filteredCountries[0]} />
+        <Country country={shownCountry} />
       ) : (
         <div>
           {filteredCountries.map((country, i) => (
             <div key={i}>
               {country.name.common}{" "}
-              <button onClick={handleButtonClick}>show</button>
+              <button onClick={handleButtonClick(i)}>show</button>
             </div>
           ))}
         </div>
