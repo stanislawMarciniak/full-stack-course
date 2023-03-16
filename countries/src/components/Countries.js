@@ -1,7 +1,12 @@
+import { useState } from "react";
 import Country from "./Country";
 
 const Countries = ({ filteredCountries }) => {
-  const handleClick = (i) => filteredCountries.find((n, index) => index === i);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsLoaded(true);
+  };
 
   if (filteredCountries.length > 10)
     return <>Too many matches, specify another filter</>;
@@ -13,12 +18,18 @@ const Countries = ({ filteredCountries }) => {
 
   return (
     <>
-      {filteredCountries.map((country, i) => (
-        <div key={i}>
-          {country.name.common}{" "}
-          <button onClick={() => handleClick(i)}>show</button>
+      {isLoaded ? (
+        <Country country={filteredCountries[0]} />
+      ) : (
+        <div>
+          {filteredCountries.map((country, i) => (
+            <div key={i}>
+              {country.name.common}{" "}
+              <button onClick={handleButtonClick}>show</button>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </>
   );
 };
