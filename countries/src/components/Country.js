@@ -21,7 +21,11 @@ const Country = (country) => {
           ))}
         </ul>
       </div>
-      <img src={country.country.flags.png} alt={country.country.flags.alt} />
+      <img
+        class="flag"
+        src={country.country.flags.png}
+        alt={country.country.flags.alt}
+      />
       <Weather capital={country.country.capital} />
     </>
   );

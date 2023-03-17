@@ -23,12 +23,16 @@ const Weather = ({ capital }) => {
   }
 
   return (
-    <>
+    <div class="weather-text">
       <h2>Weather in {capital}</h2>
       <p>Temperature: {weatherData.main.temp} °C</p>
+      <img
+        class="weather-icon"
+        src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+        alt={weatherData.weather[0].description}
+      />
       <p>Wind: {weatherData.wind.speed} m/s</p>
-      <p>Description: {weatherData.weather[0].description}</p>
-    </>
+    </div>
   );
 };
 
