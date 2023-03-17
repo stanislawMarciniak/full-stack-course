@@ -14,7 +14,6 @@ const Countries = ({ filteredCountries, isLoaded, setIsLoaded }) => {
   }
 
   const handleButtonClick = (index) => {
-    console.log(`handleButtonClick ${filteredCountries} and index ${index}`);
     setIsLoaded(true);
     setShownCountry(filteredCountries.find((n, i) => i === index));
   };
