@@ -8,7 +8,7 @@ import Countries from "./components/Countries";
 function App() {
   const [countries, setCountries] = useState([]);
   const [filter, setFilter] = useState("");
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(null);
 
   useEffect(
     () =>
@@ -17,7 +17,6 @@ function App() {
       }),
     []
   );
-  console.log("render", countries, "countries");
 
   const handleFilterChange = (event) => {
     setIsLoaded(false);
