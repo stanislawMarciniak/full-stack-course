@@ -21,7 +21,7 @@ function App() {
 
   const handleFilterChange = (event) => {
     setIsLoaded(false);
-    return setFilter(event.target.value);
+    setFilter(event.target.value);
   };
 
   const filteredCountries = countries.filter((country) => {
