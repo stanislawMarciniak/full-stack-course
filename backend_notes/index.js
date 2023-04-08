@@ -3,6 +3,9 @@ const app = express();
 
 app.use(express.json());
 
+var cors = require("cors");
+app.use(cors());
+
 let notes = [
   {
     id: 1,
