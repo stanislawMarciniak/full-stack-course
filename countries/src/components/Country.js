@@ -8,9 +8,11 @@ const Country = (country) => {
     <>
       <h1>{country.country.name.common}</h1>
       <div>
-        capital {country.country.capital}
+        Capital {country.country.capital}
         <br />
-        area {country.country.area}
+        Area {country.country.area} km²
+        <br />
+        Population {country.country.population}
       </div>
       <br />
       <div>
@@ -22,7 +24,7 @@ const Country = (country) => {
         </ul>
       </div>
       <img
-        class="flag"
+        className="flag"
         src={country.country.flags.png}
         alt={country.country.flags.alt}
       />
